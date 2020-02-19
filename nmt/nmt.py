@@ -604,6 +604,11 @@ def create_or_load_hparams(
         hparams, hparams_path)
   else:
     hparams = ensure_compatible_hparams(hparams, default_hparams, hparams_path)
+    # zl_debug
+    hparams.vocab_prefix = default_hparams.vocab_prefix
+    hparams.train_prefix = default_hparams.train_prefix
+    hparams.dev_prefix = default_hparams.dev_prefix
+    hparams.test_prefix = default_hparams.test_prefix
   hparams = extend_hparams(hparams)
 
   # Save HParams

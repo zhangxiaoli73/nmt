@@ -36,7 +36,7 @@ __all__ = ["BaseModel", "Model"]
 
 class TrainOutputTuple(collections.namedtuple(
     "TrainOutputTuple", ("train_summary", "train_loss", "predict_count",
-                         "global_step", "word_count", "batch_size", "grad_norm",
+                         "global_step", "word_count", "batch_size",
                          "learning_rate"))):
   """To allow for flexibily in returing different outputs."""
   pass
@@ -97,8 +97,11 @@ class BaseModel(object):
       self._set_train_or_infer(res, reverse_target_vocab_table, hparams)
 
     # Saver
+    print("aaaaaaaaaaaaaaaaaaaaaaaaa")
+    self.variables = tf.global_variables()
+    print(self.variables)
     self.saver = tf.train.Saver(
-        tf.global_variables(), max_to_keep=hparams.num_keep_ckpts)
+        self.variables, max_to_keep=hparams.num_keep_ckpts)
 
   def _set_params_initializer(self,
                               hparams,
@@ -327,15 +330,36 @@ class BaseModel(object):
   def train(self, sess):
     """Execute train graph."""
     assert self.mode == tf.contrib.learn.ModeKeys.TRAIN
+
+    # self.saver.save(sess, "/home/test/workspace/nmt/checkpoint/gnmt.ckpt")
+    print("1111111111111 \n")
+    # print(self.train_summary)
+    # print(self.train_loss)
+    # print(self.predict_count)
+    # print(self.global_step)
+    # print(self.word_count)
+    # print(sess.run(self.batch_size))
+    # print(self.grad_norm)
+    # print(self.learning_rate)
+    # print(self.update)
+    # print("1111111 done")
+
+    # print(sess.run(sess.graph.get_tensor_by_name("dynamic_seq2seq/encoder/bidirectional_rnn/fw/basic_lstm_cell/kernel:0")))
+
+    # # save model
+    # saver = tf.train.Saver()
+    # sess.run(tf.global_variables_initializer())
+    # sess.run(tf.tables_initializer())
     output_tuple = TrainOutputTuple(train_summary=self.train_summary,
                                     train_loss=self.train_loss,
                                     predict_count=self.predict_count,
                                     global_step=self.global_step,
                                     word_count=self.word_count,
                                     batch_size=self.batch_size,
-                                    grad_norm=self.grad_norm,
                                     learning_rate=self.learning_rate)
-    return sess.run([self.update, output_tuple])
+    # return sess.run([self.update, output_tuple])
+    return sess.run(output_tuple)
+
 
   def eval(self, sess):
     """Execute eval graph."""
