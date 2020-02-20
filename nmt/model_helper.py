@@ -510,17 +510,8 @@ def create_rnn_cell(unit_type, num_units, num_layers, num_residual_layers,
 
 def gradient_clip(gradients, max_gradient_norm):
   """Clipping gradients of a model."""
-
-  #zl_debug
-  print("gradients kkkkk")
-  print(gradients)
-  print(max_gradient_norm)
-  # clipped_gradients, gradient_norm = tf.clip_by_global_norm(
-  #     gradients, max_gradient_norm)
-
-  clipped_gradients = gradients
-  gradient_norm = max_gradient_norm
-
+  clipped_gradients, gradient_norm = tf.clip_by_global_norm(
+      gradients, max_gradient_norm)
   gradient_norm_summary = [tf.summary.scalar("grad_norm", gradient_norm)]
   gradient_norm_summary.append(
       tf.summary.scalar("clipped_gradient", tf.global_norm(clipped_gradients)))

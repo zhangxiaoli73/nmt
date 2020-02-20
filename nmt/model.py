@@ -36,7 +36,7 @@ __all__ = ["BaseModel", "Model"]
 
 class TrainOutputTuple(collections.namedtuple(
     "TrainOutputTuple", ("train_summary", "train_loss", "predict_count",
-                         "global_step", "word_count", "batch_size",
+                         "global_step", "word_count", "batch_size", "grad_norm",
                          "learning_rate"))):
   """To allow for flexibily in returing different outputs."""
   pass
@@ -356,10 +356,9 @@ class BaseModel(object):
                                     global_step=self.global_step,
                                     word_count=self.word_count,
                                     batch_size=self.batch_size,
+                                    grad_norm=self.grad_norm,
                                     learning_rate=self.learning_rate)
-    # return sess.run([self.update, output_tuple])
-    return sess.run(output_tuple)
-
+    return sess.run([self.update, output_tuple])
 
   def eval(self, sess):
     """Execute eval graph."""

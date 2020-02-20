@@ -30,7 +30,6 @@ from . import model_helper
 from .utils import misc_utils as utils
 from .utils import nmt_utils
 
-
 utils.check_tensorflow_version()
 
 __all__ = [
@@ -353,14 +352,13 @@ def init_stats():
 
 def update_stats(stats, start_time, step_result):
   """Update stats: write summary and accumulate statistics."""
-  # _, output_tuple = step_result
-  output_tuple = step_result
+  _, output_tuple = step_result
 
   # Update statistics
   batch_size = output_tuple.batch_size
   stats["step_time"] += time.time() - start_time
   stats["train_loss"] += output_tuple.train_loss * batch_size
-  stats["grad_norm"] += 0 # output_tuple.grad_norm
+  stats["grad_norm"] += output_tuple.grad_norm
   stats["predict_count"] += output_tuple.predict_count
   stats["word_count"] += output_tuple.word_count
   stats["sequence_count"] += batch_size
