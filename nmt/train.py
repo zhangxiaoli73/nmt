@@ -30,6 +30,7 @@ from . import model_helper
 from .utils import misc_utils as utils
 from .utils import nmt_utils
 
+
 utils.check_tensorflow_version()
 
 __all__ = [
@@ -447,6 +448,7 @@ def get_model_creator(hparams):
                      hparams.attention_architecture)
   return model_creator
 
+from tensorflow.core.protobuf import rewriter_config_pb2
 
 def train(hparams, scope=None, target_session=""):
   """Train a translation model."""
@@ -489,7 +491,8 @@ def train(hparams, scope=None, target_session=""):
 
   config_proto = utils.get_config_proto(
       log_device_placement=log_device_placement, num_intra_threads=6, num_inter_threads=1)
-
+  # zl_debug
+  # config_proto.graph_options.rewrite_options.disable_meta_optimizer=rewriter_config_pb2.RewriterConfig.OFF
   train_sess = tf.Session(
       target=target_session, config=config_proto, graph=train_model.graph)
   # eval_sess = tf.Session(
