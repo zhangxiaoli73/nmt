@@ -332,7 +332,7 @@ class BaseModel(object):
     assert self.mode == tf.contrib.learn.ModeKeys.TRAIN
 
     # self.saver.save(sess, "/home/test/workspace/nmt/checkpoint/gnmt.ckpt")
-    print("1111111111111 \n")
+    utils.print_out("1111111111111 \n")
     # print(self.train_summary)
     # print(self.train_loss)
     # print(self.predict_count)

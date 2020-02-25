@@ -428,7 +428,6 @@ def before_train(loaded_train_model, train_model, train_sess, global_step,
   train_sess.run(
       train_model.iterator.initializer,
       feed_dict={train_model.skip_count_placeholder: skip_count})
-
   return stats, info, start_train_time
 
 
@@ -524,8 +523,8 @@ def train(hparams, scope=None, target_session=""):
     ### Run a step ###
     start_time = time.time()
     step_result = loaded_train_model.train(train_sess)
-    print("step_result alllllllllll")
-    print(step_result)
+    utils.print_out("step_result alllllllllll")
+    utils.print_out(str(step_result))
     hparams.epoch_step += 1
 
     # Process step_result, accumulate stats, and write summary

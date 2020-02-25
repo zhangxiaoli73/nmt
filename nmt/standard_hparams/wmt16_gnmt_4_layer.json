@@ -3,7 +3,7 @@
   "attention_architecture": "gnmt_v2",
   "batch_size": 1,
   "colocate_gradients_with_ops": true,
-  "dropout": 0.2,
+  "dropout": 0.0,
   "encoder_type": "gnmt",
   "eos": "</s>",
   "forget_bias": 1.0,
