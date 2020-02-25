@@ -621,14 +621,17 @@ def avg_checkpoints(model_dir, num_last_checkpoints, global_step,
 def create_or_load_model(model, model_dir, session, name):
   """Create translation model and initialize or load parameters in session."""
   latest_ckpt = tf.train.latest_checkpoint(model_dir)
-  if latest_ckpt:
-    model = load_model(model, latest_ckpt, session, name)
-  else:
-    start_time = time.time()
-    session.run(tf.global_variables_initializer())
-    session.run(tf.tables_initializer())
-    utils.print_out("  created %s model with fresh parameters, time %.2fs" %
-                    (name, time.time() - start_time))
+  # if latest_ckpt:
+  #   model = load_model(model, latest_ckpt, session, name)
+  # else:
+  #   start_time = time.time()
+  #   session.run(tf.global_variables_initializer())
+  #   session.run(tf.tables_initializer())
+  #   utils.print_out("  created %s model with fresh parameters, time %.2fs" %
+  #                   (name, time.time() - start_time))
+
+  print("999999 load checkpoint")
+  model = load_model(model, "./checkpoint/gnmt.ckpt", session, name)
 
   global_step = model.global_step.eval(session=session)
   return model, global_step
