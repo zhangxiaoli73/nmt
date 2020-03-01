@@ -522,6 +522,7 @@ def train(hparams, scope=None, target_session=""):
   while global_step < num_train_steps:
     ### Run a step ###
     start_time = time.time()
+    utils.print_out(str(hparams.epoch_step))
     step_result = loaded_train_model.train(train_sess)
     utils.print_out("step_result alllllllllll")
     utils.print_out(str(step_result))
