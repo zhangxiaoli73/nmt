@@ -487,7 +487,7 @@ def train(hparams, scope=None, target_session=""):
   #     num_inter_threads=hparams.num_inter_threads)
 
   config_proto = utils.get_config_proto(
-      log_device_placement=log_device_placement, num_intra_threads=6, num_inter_threads=1)
+      log_device_placement=log_device_placement, num_intra_threads=1, num_inter_threads=1)
   # zl_debug
   # config_proto.graph_options.rewrite_options.disable_meta_optimizer=rewriter_config_pb2.RewriterConfig.OFF
   train_sess = tf.Session(
