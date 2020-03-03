@@ -428,6 +428,7 @@ def before_train(loaded_train_model, train_model, train_sess, global_step,
   train_sess.run(
       train_model.iterator.initializer,
       feed_dict={train_model.skip_count_placeholder: skip_count})
+
   return stats, info, start_train_time
 
 
@@ -445,7 +446,6 @@ def get_model_creator(hparams):
                      hparams.attention_architecture)
   return model_creator
 
-from tensorflow.core.protobuf import rewriter_config_pb2
 
 def train(hparams, scope=None, target_session=""):
   """Train a translation model."""
@@ -524,7 +524,7 @@ def train(hparams, scope=None, target_session=""):
     start_time = time.time()
     utils.print_out(str(hparams.epoch_step))
     step_result = loaded_train_model.train(train_sess)
-    utils.print_out("step_result alllllllllll")
+    utils.print_out("get train result 1111111")
     utils.print_out(str(step_result))
     hparams.epoch_step += 1
 
